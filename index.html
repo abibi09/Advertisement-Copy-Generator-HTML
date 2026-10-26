@@ -1,0 +1,447 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AdSpark | Advertisement Copy Generator</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f5fb;
+      color: #20213a;
+      min-height: 100vh;
+    }
+
+    header {
+      background: #ffffff;
+      padding: 20px 7%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #e8e8f0;
+    }
+
+    .logo { font-size: 25px; font-weight: bold; color: #6554df; }
+    .tag { color: #77758a; font-size: 13px; }
+
+    .hero { text-align: center; padding: 45px 20px 25px; }
+    .hero span {
+      color: #6554df;
+      background: #e8e5ff;
+      padding: 8px 14px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+    .hero h1 { font-size: clamp(28px, 5vw, 42px); margin: 22px 0 12px; }
+    .hero h1 em { color: #6554df; font-style: normal; }
+    .hero p { color: #77758a; line-height: 1.6; }
+
+    main {
+      width: min(1100px, 92%);
+      margin: 15px auto 50px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    .panel {
+      background: white;
+      border: 1px solid #e7e6f0;
+      border-radius: 18px;
+      padding: 26px;
+      box-shadow: 0 8px 28px #24204a08;
+    }
+
+    h2 { font-size: 19px; margin-bottom: 8px; }
+    .sub { color: #858398; font-size: 13px; margin-bottom: 24px; }
+
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: bold;
+      margin: 17px 0 8px;
+    }
+
+    input, textarea, select {
+      width: 100%;
+      padding: 12px 13px;
+      border: 1px solid #deddea;
+      border-radius: 9px;
+      font: inherit;
+      font-size: 14px;
+      color: #29283c;
+      background: white;
+      outline: none;
+    }
+
+    input:focus, textarea:focus, select:focus {
+      border-color: #6554df;
+      box-shadow: 0 0 0 3px #6554df18;
+    }
+
+    textarea { min-height: 90px; resize: vertical; line-height: 1.5; }
+    .two { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+    button {
+      border: none;
+      border-radius: 9px;
+      padding: 12px 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    button:hover { transform: translateY(-1px); }
+    .generate {
+      margin-top: 23px;
+      width: 100%;
+      color: white;
+      background: linear-gradient(110deg, #6554df, #8d58e8);
+      font-size: 15px;
+      padding: 15px;
+    }
+
+    .generate:disabled { opacity: 0.65; cursor: wait; }
+
+    .empty {
+      text-align: center;
+      padding: 60px 15px;
+      color: #858398;
+    }
+
+    .empty .emoji { font-size: 45px; margin-bottom: 18px; }
+    .empty h3 { color: #37364c; margin-bottom: 9px; }
+    .empty p { font-size: 13px; line-height: 1.7; }
+
+    .result-card {
+      border: 1px solid #e8e6f2;
+      border-radius: 12px;
+      padding: 17px;
+      margin-top: 15px;
+      background: #fdfdff;
+    }
+
+    .result-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .result-top h3 { font-size: 14px; }
+    .pill {
+      color: #6554df;
+      background: #efedff;
+      border-radius: 20px;
+      font-size: 10px;
+      padding: 5px 8px;
+      font-weight: bold;
+    }
+
+    .result-text { font-size: 14px; line-height: 1.7; white-space: pre-wrap; overflow-wrap: anywhere; }
+    .copy {
+      margin-top: 13px;
+      color: #6554df;
+      background: #efedff;
+      font-size: 12px;
+    }
+
+    .result-actions { display: flex; gap: 10px; margin-top: 18px; }
+    .result-actions button { flex: 1; font-size: 12px; }
+    .copy-all { background: #6554df; color: white; }
+    .clear { background: #f0eff6; color: #55536c; }
+
+    .notice { font-size: 12px; color: #858398; margin-top: 15px; line-height: 1.6; }
+    footer { text-align: center; padding: 20px; color: #858398; font-size: 12px; }
+
+    @media(max-width: 760px) {
+      main { grid-template-columns: 1fr; }
+      header { padding: 18px 5%; }
+      .tag { display: none; }
+      .panel { padding: 20px; }
+    }
+
+    @media(max-width: 400px) {
+      .two { grid-template-columns: 1fr; gap: 0; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">✦ AdSpark</div>
+    <div class="tag">ADVERTISEMENT COPY GENERATOR</div>
+  </header>
+
+  <section class="hero">
+    <span>✦ YOUR CREATIVE MARKETING ASSISTANT</span>
+    <h1>Words that sell.<br><em>Ads that connect.</em></h1>
+    <p>Create compelling advertisement copy for your brand in seconds.<br>
+       Add your details and let your creativity take off.</p>
+  </section>
+
+  <main>
+    <section class="panel">
+      <h2>✦ Create your advertisement</h2>
+      <p class="sub">Tell us about your product or service.</p>
+
+      <form id="adForm">
+        <label for="product">Product or Service Name *</label>
+        <input id="product" required maxlength="100"
+          placeholder="e.g. Eco-friendly water bottle">
+
+        <label for="description">Product Description *</label>
+        <textarea id="description" required maxlength="600"
+          placeholder="Describe its features, benefits and what makes it special..."></textarea>
+
+        <div class="two">
+          <div>
+            <label for="platform">Advertising Platform</label>
+            <select id="platform">
+              <option value="Instagram">Instagram</option>
+              <option value="Facebook">Facebook</option>
+              <option value="Google Ads">Google Ads</option>
+              <option value="LinkedIn">LinkedIn</option>
+              <option value="Email">Email Marketing</option>
+              <option value="General">General Advertisement</option>
+            </select>
+          </div>
+          <div>
+            <label for="tone">Writing Tone</label>
+            <select id="tone">
+              <option value="Creative">Creative</option>
+              <option value="Professional">Professional</option>
+              <option value="Funny">Funny</option>
+              <option value="Friendly">Friendly</option>
+              <option value="Persuasive">Persuasive</option>
+              <option value="Luxury">Luxury</option>
+            </select>
+          </div>
+        </div>
+
+        <label for="audience">Target Audience</label>
+        <input id="audience" maxlength="150"
+          placeholder="e.g. Students, professionals, fitness lovers">
+
+        <label for="goal">Advertising Goal</label>
+        <select id="goal">
+          <option value="Increase sales">Increase Sales</option>
+          <option value="Build brand awareness">Build Brand Awareness</option>
+          <option value="Promote a new product">Promote a New Product</option>
+          <option value="Get more website visits">Get Website Visits</option>
+          <option value="Generate leads">Generate Leads</option>
+        </select>
+
+        <button class="generate" id="generateBtn" type="submit">
+          ✨ Generate Advertisement Copy
+        </button>
+      </form>
+
+      <p class="notice">
+        This standalone demo uses built-in copywriting templates.
+        It does not connect to an external AI service.
+      </p>
+    </section>
+
+    <section class="panel" aria-live="polite">
+      <h2>✧ Your generated copy</h2>
+      <p class="sub">Your advertisement variations will appear here.</p>
+
+      <div id="results">
+        <div class="empty">
+          <div class="emoji">✍️</div>
+          <h3>Your next great ad starts here</h3>
+          <p>Fill in the details and click Generate.<br>
+             Three creative variations will be prepared for you.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>AdSpark · Advertisement Copy Generator · Built with HTML, CSS & JavaScript</footer>
+
+  <script>
+    const form = document.getElementById("adForm");
+    const results = document.getElementById("results");
+    const generateBtn = document.getElementById("generateBtn");
+
+    function choose(items, seed) {
+      return items[Math.abs(seed) % items.length];
+    }
+
+    function makeAds(data) {
+      const { product, description, platform, tone, audience, goal } = data;
+      const seed = [...(product + description + tone)]
+        .reduce((sum, char) => sum + char.charCodeAt(0), 0);
+
+      const cleanDescription = description.trim().replace(/[.!?]+$/, "");
+      const cleanProduct = product.trim();
+      const target = audience.trim() || "everyone who values quality";
+
+      const hooks = {
+        Creative: ["Meet your new favorite", "A little change, a big difference", "Make room for something amazing"],
+        Professional: ["Discover a smarter choice", "Quality designed around you", "A better solution starts here"],
+        Funny: ["Your wishlist called", "Plot twist: it gets even better", "Your routine deserves an upgrade"],
+        Friendly: ["Something special for you", "Let's make life a little better", "Your next favorite is here"],
+        Persuasive: ["Don't miss out on", "It's time to experience", "Make the smart choice with"],
+        Luxury: ["Experience the art of excellence", "Elevate your everyday", "Discover exceptional quality"]
+      };
+
+      const benefits = [
+        "Discover what makes it special",
+        "Find the difference for yourself",
+        "Make it part of your everyday"
+      ];
+
+      const calls = {
+        "Increase sales": ["Shop Now", "Get Yours Today", "Make It Yours"],
+        "Build brand awareness": ["Discover Our Brand", "Learn More", "Meet Us"],
+        "Promote a new product": ["Explore What's New", "Be Among the First", "Discover It Today"],
+        "Get more website visits": ["Visit Our Website", "Explore More", "See It for Yourself"],
+        "Generate leads": ["Get Started", "Contact Us Today", "Find Out More"]
+      };
+
+      const emojis = platform === "Instagram" || platform === "Facebook"
+        ? [" ✨", " 💜", " 🚀"] : ["", "", ""];
+
+      const formats = [
+        {
+          title: choose(hooks[tone], seed),
+          body: `${cleanProduct} is here! ${cleanDescription}. Made with ${target} in mind. ${choose(benefits, seed + 1)}.`,
+          cta: choose(calls[goal], seed)
+        },
+        {
+          title: `${cleanProduct}: ${choose(["Made for You", "Your Next Favorite", "A Fresh Perspective"], seed + 2)}`,
+          body: `Looking for something that fits your needs? ${cleanProduct} brings you ${cleanDescription.toLowerCase()}. ${choose(benefits, seed + 3)}.`,
+          cta: choose(calls[goal], seed + 1)
+        },
+        {
+          title: choose(["Ready for Something Better?", "Here's Your Sign", "Discover Your Difference"], seed + 1),
+          body: `For ${target}: get to know ${cleanProduct}. ${cleanDescription}. Your next step toward something great starts here.`,
+          cta: choose(calls[goal], seed + 2)
+        }
+      ];
+
+      return formats.map((ad, index) => ({
+        ...ad,
+        body: platform === "Instagram" || platform === "Facebook"
+          ? `${ad.body}${emojis[index]}`
+          : ad.body
+      }));
+    }
+
+    function escapeHTML(value) {
+      return value.replace(/[&<>"']/g, char => ({
+        "&": "&amp;", "<": "&lt;", ">": "&gt;",
+        '"': "&quot;", "'": "&#39;"
+      })[char]);
+    }
+
+    function renderAds(ads, data) {
+      results.innerHTML = ads.map((ad, index) => `
+        <article class="result-card">
+          <div class="result-top">
+            <h3>Variation ${index + 1}</h3>
+            <span class="pill">${escapeHTML(data.platform)}</span>
+          </div>
+          <p class="result-text"><strong>${escapeHTML(ad.title)}</strong></p>
+          <p class="result-text" style="margin-top:8px">${escapeHTML(ad.body)}</p>
+          <p class="result-text" style="margin-top:12px;color:#6554df">
+            <strong>CTA: ${escapeHTML(ad.cta)}</strong>
+          </p>
+          <button type="button" class="copy" data-copy="${index}">
+            Copy Variation ${index + 1}
+          </button>
+        </article>
+      `).join("") + `
+        <div class="result-actions">
+          <button type="button" class="copy-all" id="copyAll">Copy All Ads</button>
+          <button type="button" class="clear" id="clearResults">Clear Results</button>
+        </div>`;
+
+      results.querySelectorAll("[data-copy]").forEach(button => {
+        button.addEventListener("click", async () => {
+          const ad = ads[Number(button.dataset.copy)];
+          await copyText(`${ad.title}\n\n${ad.body}\n\n${ad.cta}`, button);
+        });
+      });
+
+      document.getElementById("copyAll").addEventListener("click", async () => {
+        const text = ads.map((ad, i) =>
+          `Variation ${i + 1}\n${ad.title}\n${ad.body}\n${ad.cta}`
+        ).join("\n\n--------------------\n\n");
+        await copyText(text, document.getElementById("copyAll"));
+      });
+
+      document.getElementById("clearResults").addEventListener("click", () => {
+        results.innerHTML = `
+          <div class="empty">
+            <div class="emoji">✍️</div>
+            <h3>Ready for your next idea?</h3>
+            <p>Enter your details and generate new advertisement copy.</p>
+          </div>`;
+      });
+    }
+
+    async function copyText(text, button) {
+      try {
+        if (navigator.clipboard && window.isSecureContext) {
+          await navigator.clipboard.writeText(text);
+        } else {
+          const area = document.createElement("textarea");
+          area.value = text;
+          area.style.position = "fixed";
+          area.style.opacity = "0";
+          document.body.appendChild(area);
+          area.select();
+          const copied = document.execCommand("copy");
+          area.remove();
+          if (!copied) throw new Error("Copy failed");
+        }
+
+        const oldText = button.textContent;
+        button.textContent = "✓ Copied!";
+        setTimeout(() => button.textContent = oldText, 1600);
+      } catch (error) {
+        alert("Copy was blocked by your browser. Please select and copy the text manually.");
+      }
+    }
+
+    form.addEventListener("submit", event => {
+      event.preventDefault();
+
+      const data = {
+        product: document.getElementById("product").value.trim(),
+        description: document.getElementById("description").value.trim(),
+        platform: document.getElementById("platform").value,
+        tone: document.getElementById("tone").value,
+        audience: document.getElementById("audience").value,
+        goal: document.getElementById("goal").value
+      };
+
+      if (!data.product || !data.description) {
+        alert("Please enter the product name and description.");
+        return;
+      }
+
+      generateBtn.disabled = true;
+      generateBtn.textContent = "✨ Creating your ads...";
+
+      try {
+        const ads = makeAds(data);
+        renderAds(ads, data);
+      } catch (error) {
+        results.textContent = "Something went wrong. Please check your inputs and try again.";
+      } finally {
+        generateBtn.disabled = false;
+        generateBtn.textContent = "✨ Generate Advertisement Copy";
+      }
+    });
+  </script>
+</body>
+</html>
